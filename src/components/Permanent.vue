@@ -1,11 +1,12 @@
 <template lang="pug">
   div#permanent
-    ul: li(v-for="(memory, index) in memoriesImage")
-        img(:src="memory.url")
+    ul: li(v-for="(memory, index) in memoriesImage" @click="peepInMemories(memory.id)")
+      img(:src="memory.url")
 </template>
 
 <script>
 import axios from 'axios'
+import router from '@/router'
 
 export default {
   name: 'Permanent',
@@ -22,7 +23,8 @@ export default {
       }) //eslint-disable-line
   },
   methods: {
-    peepInMemories () {
+    peepInMemories (id) {
+      router.push({name: 'Twinkling', params: {id}})
     }
   }
 }
