@@ -1,14 +1,28 @@
 <template lang="pug">
   div#permanent
-    h1 Hello
+    ul: li(v-for="(memory, index) in memoriesImage")
+        img(:src="memory.url")
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
-  name: 'HelloWorld',
+  name: 'Permanent',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      memoriesImage: []
+    }
+  },
+  mounted () {
+    axios
+      .get('https://wfc-2019.firebaseapp.com/images?limit=10&offset=0')
+      .then(response => {
+        this.memoriesImage = response.data.data.images
+      }) //eslint-disable-line
+  },
+  methods: {
+    peepInMemories () {
     }
   }
 }
