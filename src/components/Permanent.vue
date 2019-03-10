@@ -8,7 +8,7 @@
           div.picture-text {{memory.title}}
     infinite-loading(@infinite="permanentHandler")
       div(slot="spiral")
-      div(slot="no-more") 思い出が...
+      div(slot="no-more") あなたの思い出がこれ以上ありません
     div(@click="onModalEvenet")#search
       div.children search
     twinkling-search(v-if="modal")
