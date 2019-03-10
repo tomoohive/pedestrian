@@ -1,8 +1,11 @@
 <template lang="pug">
   div#permanent
     emotional-header
-    ul: li(v-for="(memory, index) in memoriesImage" :key="index" @click="peepInMemories(memory.id)")
-      img(:src="memory.url")
+    div.grid-container
+      div(v-for="(memory, index) in memoriesImage" :key="index" @click="peepInMemories(memory.id)").grid
+        div.picture-container
+          img(:src="memory.url")
+          div.picture-text {{memory.title}}
     infinite-loading(@infinite="permanentHandler")
       div(slot="spiral")
       div(slot="no-more") 思い出が...
@@ -67,16 +70,49 @@ h1, h2 {
 ul {
   list-style-type: none;
   padding: 0;
+  width: 100%;
+
 }
+
 li {
   display: inline-block;
   margin: 0 10px;
+  width: 40%;
 }
+
 a {
   color: #42b983;
 }
 
-img {
+.grid-container {
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+
+.grid {
+  padding: 5px;
+  grid-column: 100%;
+}
+
+.picture-container {
+}
+
+.picture-container img {
+  background-color: #FFCF2F;
   width: 100%;
+  height: 180px;
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+.picture-text {
+  width: 100%;
+  font-size: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: right;
+  font-family: 'Ubuntu', sans-serif;
+  font-weight: 700;
 }
 </style>
