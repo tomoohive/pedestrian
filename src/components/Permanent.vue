@@ -36,8 +36,6 @@ export default {
       memoriesImage: []
     }
   },
-  mounted () {
-  },
   methods: {
     peepInMemories (id) {
       router.push({name: 'Twinkling', params: {id}})

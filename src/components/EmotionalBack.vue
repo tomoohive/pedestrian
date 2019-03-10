@@ -1,6 +1,6 @@
 <template lang="pug">
-  div(@click="relplayMemories")#header
-    div.children pedestrian
+  div(@click="backToMemories")#header
+    div.children Back
 </template>
 
 <script>
@@ -9,8 +9,8 @@ import router from '@/router'
 export default {
   name: 'EmotionalHeader',
   methods: {
-    relplayMemories () {
-      router.go({name: 'permanent'})
+    backToMemories () {
+      history.back()
     }
   }
 }
@@ -24,11 +24,11 @@ export default {
   background-color: #000000;
   color: #7ACAC7;
   transform: rotate(90deg);
-  right: -63px;
-  bottom: 250px;
+  right: -38px;
+  bottom: 100px;
   z-index: 9999;
   height: 40px;
-  width: 150px;
+  width: 100px;
   font-size: 22px;
   font-weight: 700;
   border-radius: 9px;
@@ -37,6 +37,6 @@ export default {
 .children {
   position: absolute;
   bottom: 3px;
-  right: 20px;
+  right: 25px;
 }
 </style>

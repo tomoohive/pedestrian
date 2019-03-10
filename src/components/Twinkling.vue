@@ -1,30 +1,55 @@
 <template lang="pug">
   div#twinkling
     img(:src="twinklingImage.url")
-    div.image-title {{twinklingImage.title}}
-    div.image-distributer From {{twinklingImage.description.replace(/が投稿した画像/g, '')}}
+    div.title {{twinklingImage.title}}
+    div.description From {{twinklingDistributer}}
+    p #{"\n"}
+    p #{"\n"}
+    div.title-place Location
+    div.description-place
+      i.fas.fa-map-marker-alt {{twinklingContinent}}
+      i.fas.fa-angle-right {{twinklingCountry}}
+      i.fas.fa-angle-right {{twinklingCity}}
     emotional-header
+    emotional-back
 </template>
 
 <script>
 import axios from 'axios'
 import router from '@/router'
 import EmotionalHeader from './EmotionalHeader'
+import EmotionalBack from './EmotionalBack'
 
 export default {
   name: 'Twinkling',
   props: ['id'],
   components: {
-    EmotionalHeader
+    EmotionalHeader,
+    EmotionalBack
   },
   data () {
     return {
-      twinklingImage: ''
+      twinklingImage: '',
+      twinklingLocation: [],
+      twinklingDistributer: '',
+      twinklingContinent: '',
+      twinklingCountry: '',
+      twinklingCity: ''
     }
   },
   mounted () {
-    const url = 'https://wfc-2019.firebaseapp.com/image/' + this.id
-    axios.get(url).then(response => (this.twinklingImage = response.data.data))
+    const imgApi = 'https://wfc-2019.firebaseapp.com/image/' + this.id
+    axios.get(imgApi).then(response => {
+      this.twinklingImage = response.data.data
+      this.twinklingLocation = response.data.data.location
+      this.twinklingDistributer = this.twinklingImage.description.replace(/が投稿した画像/g, '')
+      const addressApi = 'https://api.opencagedata.com/geocode/v1/json?q=' + this.twinklingLocation.lat + '+' + this.twinklingLocation.lng + '&key=bc14caf04bee4b08b929213dc1fd4cf6'
+      axios.get(addressApi).then(response => {
+        this.twinklingContinent = response.data.results[0].components.continent
+        this.twinklingCountry = response.data.results[0].components.country
+        this.twinklingCity = response.data.results[0].components.city
+      })
+    })
   },
   methods: {
     back () {
@@ -62,16 +87,29 @@ img {
   object-fit: cover;
 }
 
-.image-title {
+.title {
   width: 100%;
   font-family: 'Anton', sans-serif;
   font-size: 30px;
   text-align: left;
 }
 
-.image-distributer {
+.description {
   width: 100%;
   font-size: 18px;
+  text-align: left;
+}
+
+.title-place {
+  width: 100%;
+  font-family: 'Anton', sans-serif;
+  font-size: 25px;
+  text-align: left;
+}
+
+.description-place {
+  width: 100%;
+  font-size: 16px;
   text-align: left;
 }
 </style>
