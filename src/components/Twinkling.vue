@@ -42,7 +42,7 @@ export default {
     axios.get(imgApi).then(response => {
       this.twinklingImage = response.data.data
       this.twinklingLocation = response.data.data.location
-      this.twinklingDistributer = this.twinklingImage.description.replace(/が投稿した画像/g, '')
+      this.twinklingDistributer = this.twinklingImage.author
       const addressApi = 'https://api.opencagedata.com/geocode/v1/json?q=' + this.twinklingLocation.lat + '+' + this.twinklingLocation.lng + '&key=bc14caf04bee4b08b929213dc1fd4cf6'
       axios.get(addressApi).then(response => {
         this.twinklingContinent = response.data.results[0].components.continent
