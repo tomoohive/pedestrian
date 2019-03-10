@@ -10,7 +10,7 @@ export default {
   name: 'EmotionalHeader',
   methods: {
     relplayMemories () {
-      router.go({name: 'permanent'})
+      location.reload()
     }
   }
 }
