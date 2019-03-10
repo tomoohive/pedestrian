@@ -1,11 +1,9 @@
 <template lang="pug">
   div(@click="backToMemories")#header
-    div.children Back
+    div.children back
 </template>
 
 <script>
-import router from '@/router'
-
 export default {
   name: 'EmotionalHeader',
   methods: {

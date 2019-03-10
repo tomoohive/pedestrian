@@ -4,10 +4,9 @@
       div.modal-wrapper
         div.modal-container
           div.modal-header
-            slot(name="header") default header 
+            slot(name="header") default header
           div.modal-body
-            slot(name="body")
-              img(:src="twinklingImage.url")
+            slot(name="body") default body
           div.modal-footer
             slot(name="footer") default footer
 </template>
@@ -45,29 +44,27 @@ export default {
 .modal-wrapper {
   display: table-cell;
   vertical-align: middle;
+  transform: rotate(-20deg);
 }
 
 .modal-container {
-  width: 300px;
+  width: 200%;
+  left: 200px;
   margin: 0px auto;
   padding: 20px 30px;
-  background-color: #fff;
-  border-radius: 2px;
+  background-color: #FFCF2F;
   box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
   font-family: Helvetica, Arial, sans-serif;
 }
 
-.modal-container > ul {
-  overflow-y: scroll;
-  max-height: 60vh;
-}
-
-.modal-header h3 {
-  margin-top: 0;
-  color: #42b983;
-}
-
 .modal-body {
-  margin: 20px 0;
+  margin: 20px;
+  position: relative;
+  left: -200px;
+}
+
+.modal-footer {
+  position: relative;
+  left: -200px;
 }
 </style>
